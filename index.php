@@ -1,8 +1,5 @@
+#!/usr/bin/env php
 <?php
-chdir(__DIR__);
-
 $zf2Path = __DIR__."/vendor/zendframework/zendframework/library";
-
-require 'init_autoloader.php';
-
-Zend\Mvc\Application::init(require 'config/application.config.php')->run();
+require(__DIR__.'/init_autoloader.php');
+Zend\Mvc\Application::init(require(__DIR__.'/config/application.config.php'))->run();
