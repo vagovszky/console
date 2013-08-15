@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 $srcRoot = dirname(__DIR__);
-$buildRoot = __DIR__ ;
+$buildRoot = dirname(__DIR__);
 $filename = 'console.phar';
 
 if (file_exists($buildRoot . "/$filename")) {
@@ -11,12 +11,14 @@ if (file_exists($buildRoot . "/$filename")) {
 $pharPath = $buildRoot . "/$filename";
 $phar = new \Phar($pharPath, 0, $filename);
 $phar->startBuffering();
-// remove the first line in zf.php
+
 $phar->addFromString('index.php', substr(php_strip_whitespace("$srcRoot/index.php"), 19));
-addFile($phar,"$srcRoot/init_autoloader.php", $srcRoot);
-addDir($phar, "$srcRoot/module/Application", $srcRoot);
-addDir($phar, "$srcRoot/config", $srcRoot);
+addFile($phar, "$srcRoot/module/Application/config/module.config.php", $srcRoot);
+addFile($phar, "$srcRoot/module/Application/src/Application/Controller/IndexController.php", $srcRoot);
+addFile($phar, "$srcRoot/module/Application/Module.php", $srcRoot);
 addDir($phar, "$srcRoot/vendor", $srcRoot);
+addDir($phar, "$srcRoot/config", $srcRoot);
+
 
 $stub = <<<EOF
 #!/usr/bin/env php
