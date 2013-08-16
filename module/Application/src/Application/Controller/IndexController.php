@@ -2,13 +2,24 @@
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\Console\Request as ConsoleRequest;
-use Zend\Math\Rand;
+use Doctrine\ORM\EntityManager;
 
 class IndexController extends AbstractActionController
 {
  
+    protected $em;
+    
+    public function setEntityManager(EntityManager $em){
+        $this->em = $em;
+    }
+    
+    public function getEntityManager() {
+        if (null === $this->em) {
+            $this->em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+        }
+        return $this->em;
+    }
+    
     public function defaultAction(){
         return "This is default console action\n";
     }

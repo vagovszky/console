@@ -1,5 +1,4 @@
+*
+*.*
+!README.md
 !.gitignore
-.composer
-composer
-zendframework
-autoload.php
