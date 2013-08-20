@@ -21,8 +21,6 @@ class ImportController extends AbstractActionController
     }
     
     public function importAction(){
-        $import = new \Import\Chance\Importer('https://www.chance.cz/kurzove-sazky/nabidka/xml?obdobi=2&vypisovat=1&pozadavek=vypis');
-        var_dump($import->getBettypesByLeagueId(18171890));
         return "Import procedure \n";
     }
 }
