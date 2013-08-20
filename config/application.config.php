@@ -10,7 +10,8 @@ return array(
         'DoctrineModule',
         'DoctrineORMModule',
         'Application',
-        'Database'
+        'Database',
+        'Import'
         ),
     'module_listener_options' => array(
         'module_paths' => array(

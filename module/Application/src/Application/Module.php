@@ -11,8 +11,6 @@ use Zend\Mvc\MvcEvent;
 
 class Module implements AutoloaderProviderInterface, ConfigProviderInterface, ConsoleUsageProviderInterface, ConsoleBannerProviderInterface {
 
-    const NAME = 'CLI interface for import XML data';
-
     public function onBootstrap(MvcEvent $e) {
         $application = $e->getApplication();
         $serviceManager = $application->getServiceManager();
@@ -39,11 +37,15 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Co
     }
 
     public function getConsoleBanner(Console $console) {
-        return self::NAME."\n";
+        return
+            "==------------------------------------------------------==\n" .
+            "        Welcome to my ZF2 Console-enabled app             \n" .
+            "==------------------------------------------------------==\n" .
+            "Version 0.0.1\n"
+        ;
     }
 
     public function getConsoleUsage(Console $console) {
         return array("default" => "Do a default action");
     }
-
 }
