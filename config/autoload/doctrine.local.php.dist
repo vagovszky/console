@@ -17,10 +17,5 @@ return array(
                 )
             )
         ),
-        'eventmanager' => array(
-            'orm_default' => array(
-                'subscribers' => array('Gedmo\Tree\TreeListener')
-            )
-        )
     ),
 );
