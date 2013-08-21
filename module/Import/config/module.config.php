@@ -20,4 +20,8 @@ return array(
             )
         )
     ),
+    'sources' => array(
+        'courses' => 'https://www.chance.cz/cs/chance/vyhledavani/xml?obdobi=2&vypisovat=1&pozadavek=vypis',
+        'results' => 'https://www.chance.cz/cs/chance/vyhledavani/xml?datum_od=_DATE_&obdobi=5&radit=2,1&vypisovat=2&pozadavek=vypis',
+    ),
 );

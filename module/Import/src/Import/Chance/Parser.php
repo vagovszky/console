@@ -9,9 +9,11 @@ class Parser {
     
     private $dom;
     
-    public function __construct ($source)
-    {
+    public function __construct (){}
+    
+    public function setSource($source){
         $this->loadDom($source);
+        return $this;
     }
     
     protected function loadDom($source){
