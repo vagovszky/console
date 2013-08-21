@@ -12,3 +12,6 @@ installation
 
 usage:
     php index.php import
+
+phar creation:
+    ./bin/create_phar
