@@ -1,7 +1,14 @@
-console
-=======
+Console Chance import tool
+===========================
 
-ZF 2 console based application
+Import courses from Chance
+
+installation
+------------
+
+- php composer.phar install
+- setup doctrine - cp config/doctrine.local.php.dist config/doctrine.local.php & edit
+- create database - ./vendor/bin/doctrine-module orm:schema-tool:create
 
 usage:
-    php index.php
+    php index.php import
