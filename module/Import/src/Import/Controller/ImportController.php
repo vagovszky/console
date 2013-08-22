@@ -27,9 +27,12 @@ class ImportController extends AbstractActionController
         if($console instanceof Virtual){
             return "No console support";
         }
-       
+        $console->write('Import started ... [ '.date('d.m.Y H:i:s').' ]'.PHP_EOL);
         $Importer = $this->getServiceLocator()->get('importer');
         $results = $Importer->import();
+        $console->write('Import finished .. [ '.date('d.m.Y H:i:s').' ]'.PHP_EOL.PHP_EOL);
+        
+        $console->write('Added ligues ..... '.$results["ligues_add"].PHP_EOL);
         $console->write('Added ligues ..... '.$results["ligues_add"].PHP_EOL);
         $console->write('Edited ligues .... '.$results["ligues_edit"].PHP_EOL);
         $console->write('Added bettypes ... '.$results["bettypes_add"].PHP_EOL);
