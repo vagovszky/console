@@ -33,7 +33,6 @@ class ImportController extends AbstractActionController
         $console->write('Import finished .. [ '.date('d.m.Y H:i:s').' ]'.PHP_EOL.PHP_EOL);
         
         $console->write('Added ligues ..... '.$results["ligues_add"].PHP_EOL);
-        $console->write('Added ligues ..... '.$results["ligues_add"].PHP_EOL);
         $console->write('Edited ligues .... '.$results["ligues_edit"].PHP_EOL);
         $console->write('Added bettypes ... '.$results["bettypes_add"].PHP_EOL);
         $console->write('Edited bettypes .. '.$results["bettypes_edit"].PHP_EOL);
