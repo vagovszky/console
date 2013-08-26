@@ -18,4 +18,10 @@ return array(
             )
         ),
     ),
+    'better' => array(
+        'chance' => array(
+            'login' => '123456',
+            'password' => 'pa$$w0rd'
+        )
+    )
 );

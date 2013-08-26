@@ -11,7 +11,8 @@ return array(
         'DoctrineORMModule',
         'Application',
         'Database',
-        'Import'
+        'Import',
+        'Better'
         ),
     'module_listener_options' => array(
         'module_paths' => array(
