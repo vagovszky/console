@@ -31,6 +31,60 @@ class Tips {
      */
     private $odd;
     
-}
 
-?>
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set bet
+     *
+     * @param float $bet
+     * @return Tips
+     */
+    public function setBet($bet)
+    {
+        $this->bet = $bet;
+    
+        return $this;
+    }
+
+    /**
+     * Get bet
+     *
+     * @return float 
+     */
+    public function getBet()
+    {
+        return $this->bet;
+    }
+
+    /**
+     * Set odd
+     *
+     * @param \Database\Entity\Odds $odd
+     * @return Tips
+     */
+    public function setOdd(\Database\Entity\Odds $odd)
+    {
+        $this->odd = $odd;
+    
+        return $this;
+    }
+
+    /**
+     * Get odd
+     *
+     * @return \Database\Entity\Odds 
+     */
+    public function getOdd()
+    {
+        return $this->odd;
+    }
+}

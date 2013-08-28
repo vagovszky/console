@@ -80,11 +80,21 @@ class Bettypes {
         return $this;
     }
 
-    public function hydrate(\stdClass $data) {
+    public function populateObj(\stdClass $data) {
         $this->setId(isset($data->id) ? intval($data->id) : null);
         $this->setName(isset($data->name) ? $data->name : null);
         return $this;
     }
 
-}
 
+    public function addMatch(\Database\Entity\Matches $matches)
+    {
+        $this->matches[] = $matches;
+        return $this;
+    }
+
+    public function removeMatch(\Database\Entity\Matches $matches)
+    {
+        $this->matches->removeElement($matches);
+    }
+}

@@ -57,7 +57,7 @@ class Importer
             } else {
                 $this->cnt_ligues_edit++;
             }
-            $ligue->hydrate($_ligue); // Map $_ligue array into object properties
+            $ligue->populateObj($_ligue); // Map $_ligue array into object properties
             $this->getEntityManager()->persist($ligue); // persist entity
             foreach ($_ligue->bettypes as $_bettype){ // $_bettybe contains array with values for Bettype entity
                 if(!$bettype = $this->getEntityManager()->find('Database\Entity\Bettypes', $_bettype->id)){
@@ -66,7 +66,7 @@ class Importer
                 } else {
                     $this->cnt_bettypes_edit++;
                 }
-                $bettype->hydrate($_bettype); // map $_bettype array into object properties
+                $bettype->populateObj($_bettype); // map $_bettype array into object properties
                 $this->getEntityManager()->persist($bettype); // persist
                 foreach($_bettype->matches as $_match){ // --||--
                     if(!$match = $this->getEntityManager()->find('Database\Entity\Matches', $_match->id)){
@@ -75,7 +75,7 @@ class Importer
                     }else{ 
                         $this->cnt_matches_edit++;
                     }
-                    $match->hydrate($_match); // --||--
+                    $match->populateObj($_match); // --||--
                     $this->getEntityManager()->persist($match); // --||--
                     foreach ($_match->odds as $_odd){ // --||--
                         if(!$odd = $this->getEntityManager()->find('Database\Entity\Odds', $_odd->id)){
@@ -84,7 +84,7 @@ class Importer
                         }else{ 
                             $this->cnt_odds_edit++;
                         }
-                        $odd->hydrate($_odd); // --||--
+                        $odd->populateObj($_odd); // --||--
                         $this->getEntityManager()->persist($odd); // --||--
                     }
                 }

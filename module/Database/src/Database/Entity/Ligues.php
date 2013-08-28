@@ -95,7 +95,7 @@ class Ligues {
         return $this;
     }
 
-    public function hydrate(\stdClass $data) {
+    public function populateObj(\stdClass $data) {
         $this->setId(isset($data->id) ? intval($data->id) : null);
         $this->setSport(isset($data->sport) ? $data->sport : null);
         $this->setRegion(isset($data->region) ? $data->region : null);
@@ -103,5 +103,15 @@ class Ligues {
         return $this;
     }
 
-}
 
+    public function addBettype(\Database\Entity\Bettypes $bettypes)
+    {
+        $this->bettypes[] = $bettypes;
+        return $this;
+    }
+
+    public function removeBettype(\Database\Entity\Bettypes $bettypes)
+    {
+        $this->bettypes->removeElement($bettypes);
+    }
+}

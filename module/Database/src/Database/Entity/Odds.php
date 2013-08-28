@@ -100,7 +100,7 @@ class Odds{
         return $this;
     }
     
-     public function hydrate(\stdClass $data) {
+     public function populateObj(\stdClass $data) {
         $this->setId(isset($data->id)?intval($data->id):null);
         $this->setName(isset($data->name)?$data->name:null);
         $this->setValue(isset($data->value)?$data->value:null);
@@ -108,6 +108,3 @@ class Odds{
         return $this;
     }
 }
-
-
-

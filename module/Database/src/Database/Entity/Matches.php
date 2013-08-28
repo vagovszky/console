@@ -138,7 +138,7 @@ class Matches {
         return $this;
     }
 
-    public function hydrate(\stdClass $data) {
+    public function populateObj(\stdClass $data) {
         $this->setId(isset($data->id) ? intval($data->id) : null);
         $this->setDatetime(isset($data->date) ? $data->date : null);
         $this->setName(isset($data->name) ? $data->name : null);
@@ -147,5 +147,14 @@ class Matches {
         return $this;
     }
 
-}
+    public function addOdd(\Database\Entity\Odds $odds)
+    {
+        $this->odds[] = $odds;
+        return $this;
+    }
 
+    public function removeOdd(\Database\Entity\Odds $odds)
+    {
+        $this->odds->removeElement($odds);
+    }
+}
