@@ -9,7 +9,13 @@ use Application\Strategy\SimpleTip;
 class SimpleTipFactory implements FactoryInterface{
     
     public function createService(ServiceLocatorInterface $serviceLocator) {
-        return new SimpleTip();
+        $simpleTip = new SimpleTip();
+        
+        $simpleTip->setChanceBetter($serviceLocator->get('chance_better'));
+        $simpleTip->setEntityManager($serviceLocator->get('Doctrine\ORM\EntityManager'));
+        $simpleTip->setConsole($serviceLocator->get('console'));
+        
+        return $simpleTip;
     }
   
 }
