@@ -22,10 +22,8 @@ class IndexController extends AbstractActionController
     
    
     public function defaultAction(){
-        //$stmt = $this->getEntityManager()->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array(1.5,0.5,6));
-        //var_dump($stmt->fetchColumn(0));
         $simpleTip = $this->getServiceLocator()->get('simpleTip');
         $simpleTip->run();
-        return "This is default console action\n";
+        return "Action finishes successfuly...\n";
     }
 }
