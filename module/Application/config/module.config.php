@@ -20,4 +20,9 @@ return array(
             )
         )
     ),
+    'service_manager' => array(
+        'factories' => array(
+            'simpleTip' => 'Application\Service\SimpleTipFactory',
+        )
+    )
 );

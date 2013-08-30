@@ -1,6 +1,6 @@
 <?php
 return array(
-     'controllers' => array(
+    'controllers' => array(
         'invokables' => array(
             'Import\Controller\Import' => 'Import\Controller\ImportController'
         ),

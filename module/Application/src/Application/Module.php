@@ -46,6 +46,16 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Co
     }
 
     public function getConsoleUsage(Console $console) {
-        return array("default" => "Do a default action");
+        return array("run" => "Make a tip if it is possible");
+    }
+    
+    public function getServiceConfig() {
+        return array(
+            'factories' => array(
+                'simpleTip' => function($sm) {
+                    return new \Application\Model\SimpleTip($sm);
+                }
+            )
+        );
     }
 }
