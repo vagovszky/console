@@ -34,7 +34,7 @@ class Bettypes {
     private $ligue;
 
     /**
-     * @ORM\OneToMany(targetEntity="Matches", mappedBy="bettypes")
+     * @ORM\OneToMany(targetEntity="Matches", mappedBy="bettype")
      */
     private $matches;
 

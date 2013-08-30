@@ -53,7 +53,7 @@ class Matches {
     private $bettype;
 
     /**
-     * @ORM\OneToMany(targetEntity="Odds", mappedBy="matches")
+     * @ORM\OneToMany(targetEntity="Odds", mappedBy="match")
      */
     private $odds;
 
