@@ -37,7 +37,7 @@ class Module implements ConsoleUsageProviderInterface
                 'chance_better' => function($sm) {
                     $config = $sm->get('Config');
                     $capabilities = array(\WebDriverCapabilityType::BROWSER_NAME => $config['better']['browser']);
-                    $wd = new \WebDriver($config['better']['wd_host'], $capabilities);
+                    $wd = new \RemoteWebDriver($config['better']['wd_host'], $capabilities);
                     $better = new Bet($wd);
                     return $better->setLogin($config['better']['chance']['login'])
                                   ->setPassword($config['better']['chance']['password']);
