@@ -7,12 +7,14 @@ class Bet {
     private $driver;
     private $login;
     private $password;
+    private $screenshots_dir;
 
     const CHANCE_URL = 'https://www.chance.cz/';
     const LIST_URL = 'https://www.chance.cz/kurzove-sazky/nabidka?obdobi=2&radit=2,1&vypisovat=2&pozadavek=vypis';
 
     public function __construct(\WebDriver $driver) {
         $this->driver = $driver;
+        $this->screenshots_dir = BASE_PATH."/data";
     }
 
     public function setPassword($password) {
@@ -49,6 +51,7 @@ class Bet {
             );
             return true;
         } catch (\Exception $e) {
+            $this->driver->takeScreenshot($this->screenshots_dir."/error-do-bet-screenshot.png");
             return false;
         }
     }
@@ -63,6 +66,7 @@ class Bet {
             );
             return true;
         } catch (\Exception $e) {
+            $this->driver->takeScreenshot($this->screenshots_dir."/error-set-money-screenshot.png");
             return false;
         }
     }
@@ -79,6 +83,7 @@ class Bet {
             );
             return true;
         } catch (\Exception $e) {
+            $this->driver->takeScreenshot($this->screenshots_dir."/error-select-bet-screenshot.png");
             return false;
         }
     }
@@ -92,6 +97,7 @@ class Bet {
             $this->driver->switchTo()->alert()->accept();
             return true;
         } catch (\Exception $e) {
+            $this->driver->takeScreenshot($this->screenshots_dir."/error-logout-screenshot.png");
             return false;
         }
     }
@@ -108,6 +114,7 @@ class Bet {
             );
             return true;
         } catch (\Exception $e) {
+            $this->driver->takeScreenshot($this->screenshots_dir."/error-login-screenshot.png");
             return false;
         }
     }

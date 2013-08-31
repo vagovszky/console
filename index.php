@@ -1,6 +1,9 @@
 #!/usr/bin/env php
 <?php
 $basePath = getcwd();
+
+define("BASE_PATH", $basePath);
+
 // load autoloader
 if (file_exists("$basePath/vendor/autoload.php")) {
     require_once "$basePath/vendor/autoload.php";
