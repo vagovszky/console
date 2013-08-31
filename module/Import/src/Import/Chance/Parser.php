@@ -28,12 +28,12 @@ class Parser {
     
     protected function getLeagues ()
     {
-        return $this->nodeAttrAsArray("//League[Bettype[@name='Zápasy']/Oddnames/Oddname='0' and Bettype/Oddnames/Oddname='1' and Bettype/Oddnames/Oddname='2' and Bettype/Oddnames/Oddname='10' and Bettype/Oddnames/Oddname='12' and Bettype/Oddnames/Oddname='02']");
+        return $this->nodeAttrAsArray("//League[@sport!='Favorit dne' and @sport!='Favorit dne'][Bettype[@name='Zápasy']/Oddnames/Oddname='0' and Bettype/Oddnames/Oddname='1' and Bettype/Oddnames/Oddname='2' and Bettype/Oddnames/Oddname='10' and Bettype/Oddnames/Oddname='12' and Bettype/Oddnames/Oddname='02']");
     }
     
     protected function getBettypesByLeagueId ($league_id)
     {
-        return $this->nodeAttrAsArray("//League[@id='" . $league_id . "']/Bettype[@name='Zápasy' and Oddnames/Oddname='0' and Oddnames/Oddname='1' and Oddnames/Oddname='2' and Oddnames/Oddname='10' and Oddnames/Oddname='12' and Oddnames/Oddname='02']");
+        return $this->nodeAttrAsArray("//League[@sport!='Favorit dne' and @sport!='Favorit dne'][@id='" . $league_id . "']/Bettype[@name='Zápasy' and Oddnames/Oddname='0' and Oddnames/Oddname='1' and Oddnames/Oddname='2' and Oddnames/Oddname='10' and Oddnames/Oddname='12' and Oddnames/Oddname='02']");
     }
     
     protected function getMatchesByBettypeId ($bettype_id)

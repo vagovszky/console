@@ -32,11 +32,11 @@ class Bet {
         if (!$this->setMoney($money)) return false; // select bet
         if (!$this->doBet()) return false; // select bet
         if (!$this->logout()) return false; // log out
-        $this->driver->close();
         return true;
     }
-
+    
     public function __destruct() {
+        $this->driver->close();
         $this->driver->quit();
     }
     // -------------------------------------------------------------------------
