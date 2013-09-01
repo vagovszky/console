@@ -11,6 +11,7 @@ class Bet {
 
     const CHANCE_URL = 'https://www.chance.cz/';
     const LIST_URL = 'https://www.chance.cz/kurzove-sazky/nabidka?obdobi=2&radit=2,1&vypisovat=2&pozadavek=vypis';
+    const WAIT_TIME = 30;
 
     public function __construct(\WebDriver $driver) {
         $this->driver = $driver;
@@ -46,7 +47,7 @@ class Bet {
     private function doBet(){
         try {
             $this->driver->findElement(\WebDriverBy::id("i_a_zaslat_tiket"))->click();
-            $this->driver->wait(12, 1000)->until(
+            $this->driver->wait(self::WAIT_TIME, 1000)->until(
                     \WebDriverExpectedCondition::presenceOfElementLocated(\WebDriverBy::className("message_ok"))
             );
             return true;
@@ -61,7 +62,7 @@ class Bet {
             $this->driver->findElement(\WebDriverBy::name("sazka-1"))->clear();
             $this->driver->findElement(\WebDriverBy::name("sazka-1"))->sendKeys($money);
             $this->driver->findElement(\WebDriverBy::id("i_tiket_obsah"))->click();
-            $this->driver->wait(10, 1000)->until(
+            $this->driver->wait(self::WAIT_TIME, 1000)->until(
                     \WebDriverExpectedCondition::elementToBeClickable(\WebDriverBy::id("i_a_zaslat_tiket"))
             );
             return true;
@@ -74,11 +75,11 @@ class Bet {
     private function selectBet($odd_id) {
         try {
             $this->driver->get(self::LIST_URL);
-            $this->driver->wait(10, 1000)->until(
+            $this->driver->wait(self::WAIT_TIME, 1000)->until(
                     \WebDriverExpectedCondition::presenceOfElementLocated(\WebDriverBy::id("souteze"))
             );
             $this->driver->findElement(\WebDriverBy::id("tip_$odd_id"))->click();
-            $this->driver->wait(10, 1000)->until(
+            $this->driver->wait(self::WAIT_TIME, 1000)->until(
                     \WebDriverExpectedCondition::presenceOfElementLocated(\WebDriverBy::id("i_a_zaslat_tiket"))
             );
             return true;
@@ -91,7 +92,7 @@ class Bet {
     private function logout() {
         try {
             $this->driver->findElement(\WebDriverBy::id("top_logout"))->click();
-            $this->driver->wait(10, 1000)->until(
+            $this->driver->wait(self::WAIT_TIME, 1000)->until(
                     \WebDriverExpectedCondition::alertIsPresent()
             );
             $this->driver->switchTo()->alert()->accept();
@@ -109,7 +110,7 @@ class Bet {
             $this->driver->findElement(\WebDriverBy::id("ich_pwd"))->clear();
             $this->driver->findElement(\WebDriverBy::id("ich_pwd"))->sendKeys($this->password);
             $this->driver->findElement(\WebDriverBy::id('chanceLoginButton'))->click();
-            $this->driver->wait(10, 1000)->until(
+            $this->driver->wait(self::WAIT_TIME, 1000)->until(
                     \WebDriverExpectedCondition::presenceOfElementLocated(\WebDriverBy::className("klient_info"))
             );
             return true;
