@@ -147,7 +147,7 @@ class SimpleTip {
                     break;
                 default:
                     $this->console->write('Last result was not been finished yet - cancel.' . PHP_EOL);
-                    $result = false;
+                    $result = true;
                     break;
             }
         } else {
@@ -155,7 +155,6 @@ class SimpleTip {
             $new_bet = self::BET;
             $result = $this->makeNewBet($odd_id, $new_bet);
         }
-        $this->console->write('Action finished... [ '.date('d.m.Y H:i:s').' ]' . PHP_EOL);
         return $result;
     }
 

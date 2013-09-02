@@ -20,9 +20,22 @@ class IndexController extends AbstractActionController
         return $this->em;
     }
     
+    public function getConsole(){
+        return $this->getServiceLocator()->get('console');
+    }
+    
    
     public function defaultAction(){
         $simpleTip = $this->getServiceLocator()->get('simpleTip');
-        $simpleTip->run();
+        $result = $simpleTip->run();
+        $console = $this->getConsole();
+        if($console instanceof Virtual){
+            return "No console support !!!";
+        }
+        if($result){
+            $console->write('Finished successfully ... [ '.date('d.m.Y H:i:s').' ]'.PHP_EOL);
+        }else{
+            $console->write('Finished with errors !!! ... [ '.date('d.m.Y H:i:s').' ]'.PHP_EOL);
+        }
     }
 }
