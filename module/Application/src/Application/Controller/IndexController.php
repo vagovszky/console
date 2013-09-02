@@ -33,9 +33,9 @@ class IndexController extends AbstractActionController
             return "No console support !!!";
         }
         if($result){
-            $console->write('Finished successfully ... [ '.date('d.m.Y H:i:s').' ]'.PHP_EOL);
+            $console->write('Finished successfully ... [ '.date('d.m.Y H:i:s').' ]'.PHP_EOL.PHP_EOL);
         }else{
-            $console->write('Finished with errors !!! ... [ '.date('d.m.Y H:i:s').' ]'.PHP_EOL);
+            $console->write('Finished with errors !!! ... [ '.date('d.m.Y H:i:s').' ]'.PHP_EOL.PHP_EOL);
         }
     }
 }
