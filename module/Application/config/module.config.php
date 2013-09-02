@@ -24,5 +24,10 @@ return array(
         'factories' => array(
             'simpleTip' => 'Application\Service\SimpleTipFactory',
         )
+    ),
+    'simple_tip' => array(
+        'profit' => 5,
+        'limit' => 400,
+        'course' => 1.3
     )
 );

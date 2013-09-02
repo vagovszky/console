@@ -21,7 +21,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Co
                     }
                 });
     }
-    
+
     public function getConfig() {
         return include __DIR__ . '/../../config/module.config.php';
     }
@@ -38,14 +38,24 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Co
 
     public function getConsoleBanner(Console $console) {
         return
-            "==------------------------------------------------------==\n" .
-            "        Welcome to my ZF2 Console-enabled app             \n" .
-            "==------------------------------------------------------==\n" .
-            "Version 0.0.1\n"
-        ;
+                "==------------------------------------------------------==\n" .
+                "         Chance automatic import & bet system             \n" .
+                "==------------------------------------------------------==\n" .
+                "Version 1.0.0 beta\n";
     }
 
     public function getConsoleUsage(Console $console) {
         return array("default" => "Make a tip if it is possible");
+    }
+
+    public function getServiceConfig() {
+        return array(
+            'factories' => array(
+                'simple_tip_options' => function ($sm) {
+                    $config = $sm->get('Config');
+                    return new Options\SimpleTipOptions(isset($config['simple_tip']) ? $config['simple_tip'] : array());
+                },
+            )
+        );
     }
 }

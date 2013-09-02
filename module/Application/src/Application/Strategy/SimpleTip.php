@@ -6,16 +6,18 @@ use Better\Chance\Bet;
 use Doctrine\ORM\EntityManager;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Database\Entity\Tips;
+use Application\Options\SimpleTipOptions;
 
 class SimpleTip {
 
     private $chance_better;
     private $em;
     private $console;
+    private $options;
 
-    const COURSE = 1.3;
-    const PROFIT = 5;
-    const LIMIT = 400;
+    public function __construct(SimpleTipOptions $options) {
+        $this->options = $options;
+    }
 
     public function setConsole(Console $console) {
         $this->console = $console;
@@ -30,6 +32,10 @@ class SimpleTip {
         $this->em = $em;
         return $this;
     }
+    
+    public function getOptions(){
+        return $this->options;
+    }
 
     private function findLastTip() {
         $query = $this->em->createQuery('SELECT t FROM Database\Entity\Tips t ORDER BY t.datetime_created DESC');
@@ -42,37 +48,38 @@ class SimpleTip {
     }
 
     private function findNewOdd() {
-        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array(self::COURSE, 0, 3));
+        $course = $this->getOptions()->getCourse();
+        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array($course, 0, 3));
         $turn = $stmt->fetchColumn(0);
         $this->console->write('Trying find odd 1. - ' . (empty($turn) ? '[ not found ]' : '[ ' . $turn . ' ]') . PHP_EOL);
         if (!empty($turn))
             return $turn;
 
-        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array(self::COURSE, 0, 6));
+        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array($course, 0, 6));
         $turn = $stmt->fetchColumn(0);
         $this->console->write('Trying find odd 2. - ' . (empty($turn) ? '[ not found ]' : '[ ' . $turn . ' ]') . PHP_EOL);
         if (!empty($turn))
             return $turn;
 
-        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array(self::COURSE, 0, 8));
+        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array($course, 0, 8));
         $turn = $stmt->fetchColumn(0);
         $this->console->write('Trying find odd 3. - ' . (empty($turn) ? '[ not found ]' : '[ ' . $turn . ' ]') . PHP_EOL);
         if (!empty($turn))
             return $turn;
 
-        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array(self::COURSE, 0.1, 8));
+        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array($course, 0.1, 8));
         $turn = $stmt->fetchColumn(0);
         $this->console->write('Trying find odd 4. - ' . (empty($turn) ? '[ not found ]' : '[ ' . $turn . ' ]') . PHP_EOL);
         if (!empty($turn))
             return $turn;
 
-        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array(self::COURSE, 0.15, 10));
+        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array($course, 0.15, 10));
         $turn = $stmt->fetchColumn(0);
         $this->console->write('Trying find odd 5. - ' . (empty($turn) ? '[ not found ]' : '[ ' . $turn . ' ]') . PHP_EOL);
         if (!empty($turn))
             return $turn;
 
-        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array(self::COURSE, 0.2, 12));
+        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array($course, 0.2, 12));
         $turn = $stmt->fetchColumn(0);
         $this->console->write('Trying find odd 6. - ' . (empty($turn) ? '[ not found ]' : '[ ' . $turn . ' ]') . PHP_EOL);
         if (!empty($turn))
@@ -82,12 +89,14 @@ class SimpleTip {
     }
 
     public function calculateBet($profit) {
-        return ceil((100 * $profit) / ((100 * self::COURSE) - 100));
+        $course = $this->getOptions()->getCourse();
+        return ceil((100 * $profit) / ((100 * $course) - 100));
     }
 
     private function makeNewBet($odd_id, $bet) {
-        if($bet >= self::LIMIT){
-            $this->console->write('Bet is heigher than limit ( bet - '.$bet.', limit - '.self::LIMIT.' ) !!!' . PHP_EOL);
+        $limit = $this->getOptions()->getLimit();
+        if($bet >= $limit){
+            $this->console->write('Bet is heigher than limit ( bet - '.$bet.', limit - '.$limit.' ) !!!' . PHP_EOL);
             $result = false;
         }else{
             $this->console->write('Creating new bet with odd_id - ' . $odd_id . ' and bet is ' . $bet . ',-Kc' . PHP_EOL);
@@ -122,6 +131,7 @@ class SimpleTip {
     }
 
     public function run() {
+        $profit = $this->getOptions()->getProfit();
         $this->console->write('Making simple tip... [ '.date('d.m.Y H:i:s').' ]' . PHP_EOL);
         $last_tip = $this->findLastTip();
         $odd_id = $this->findNewOdd();
@@ -131,18 +141,18 @@ class SimpleTip {
             switch ($last_result) {
                 case "vyhra":
                     $this->console->write('Last result was vyhra, bet was ' . $last_bet . ',-Kc' . PHP_EOL);
-                    $new_bet = $this->calculateBet(self::PROFIT);
+                    $new_bet = $this->calculateBet($profit);
                     $result = $this->makeNewBet($odd_id, $new_bet);
                     break;
                 case "prohra":
                     $this->console->write('Last result was prohra, bet was ' . $last_bet . ',-Kc' . PHP_EOL);
-                    $profit = $last_bet + self::PROFIT;
+                    $profit = $last_bet + $profit;
                     $new_bet = $this->calculateBet($profit);
                     $result = $this->makeNewBet($odd_id, $new_bet);
                     break;
                 case "zruseno":
                     $this->console->write('Last result was zruseno, bet was ' . $last_bet . ',-Kc' . PHP_EOL);
-                    $new_bet = $this->calculateBet(self::PROFIT);
+                    $new_bet = $this->calculateBet($profit);
                     $result = $this->makeNewBet($odd_id, $new_bet);
                     break;
                 default:
@@ -152,12 +162,10 @@ class SimpleTip {
             }
         } else {
             $this->console->write('No tips created yet.' . PHP_EOL);
-            $new_bet = self::BET;
+            $new_bet = $profit;
             $result = $this->makeNewBet($odd_id, $new_bet);
         }
         return $result;
     }
-
 }
 
-?>
