@@ -90,7 +90,7 @@ class SimpleTip {
 
     public function calculateBet($profit) {
         $course = $this->getOptions()->getCourse();
-        return ceil((100 * $profit) / ((100 * $course) - 100));
+        return ceil($profit / ($course - 1));
     }
 
     private function makeNewBet($odd_id, $bet) {
