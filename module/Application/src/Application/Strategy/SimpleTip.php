@@ -122,7 +122,7 @@ class SimpleTip {
     }
 
     public function run() {
-        $this->console->write("Making simple tip... " . PHP_EOL);
+        $this->console->write('Making simple tip... [ '.date('d.m.Y H:i:s').' ]' . PHP_EOL);
         $last_tip = $this->findLastTip();
         $odd_id = $this->findNewOdd();
         if ($last_tip) {
@@ -155,6 +155,7 @@ class SimpleTip {
             $new_bet = self::BET;
             $result = $this->makeNewBet($odd_id, $new_bet);
         }
+        $this->console->write('Action finished... [ '.date('d.m.Y H:i:s').' ]' . PHP_EOL);
         return $result;
     }
 

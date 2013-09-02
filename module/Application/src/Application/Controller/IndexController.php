@@ -24,6 +24,5 @@ class IndexController extends AbstractActionController
     public function defaultAction(){
         $simpleTip = $this->getServiceLocator()->get('simpleTip');
         $simpleTip->run();
-        return "Action finished...\n\n";
     }
 }
