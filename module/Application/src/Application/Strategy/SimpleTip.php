@@ -14,7 +14,8 @@ class SimpleTip {
     private $console;
 
     const COURSE = 1.3;
-    const BET = 10;
+    const PROFIT = 5;
+    const LIMIT = 400;
 
     public function setConsole(Console $console) {
         $this->console = $console;
@@ -85,15 +86,21 @@ class SimpleTip {
     }
 
     private function makeNewBet($odd_id, $bet) {
-        $this->console->write('Creating new bet with odd_id - ' . $odd_id . ' and bet is ' . $bet . ',-Kc' . PHP_EOL);
-        $result = $this->chance_better->bet($odd_id, $bet);        
-        $result = true;
-        if ($result) {
-            $this->console->write('Bet created successfully...' . PHP_EOL);
-        } else {
-            $this->console->write('Bet creation failed...' . PHP_EOL);
+        if($bet >= self::LIMIT){
+            $this->console->write('Bet is heigher than limit ( bet - '.$bet.', limit - '.self::LIMIT.' ) !!!' . PHP_EOL);
+            $result = false;
+        }else{
+            $this->console->write('Creating new bet with odd_id - ' . $odd_id . ' and bet is ' . $bet . ',-Kc' . PHP_EOL);
+            $result = $this->chance_better->bet($odd_id, $bet);        
+            $result = true;
+            if ($result) {
+                $this->console->write('Bet created successfully...' . PHP_EOL);
+            } else {
+                $this->console->write('Bet creation failed...' . PHP_EOL);
+            }
+            $result = $result && $this->saveNewBet($odd_id, $bet);
         }
-        $result = $result && $this->saveNewBet($odd_id, $bet);
+        
         return $result;
     }
 
@@ -124,18 +131,18 @@ class SimpleTip {
             switch ($last_result) {
                 case "vyhra":
                     $this->console->write('Last result was vyhra, bet was ' . $last_bet . ',-Kc' . PHP_EOL);
-                    $new_bet = self::BET;
+                    $new_bet = $this->calculateBet(self::PROFIT);
                     $result = $this->makeNewBet($odd_id, $new_bet);
                     break;
                 case "prohra":
                     $this->console->write('Last result was prohra, bet was ' . $last_bet . ',-Kc' . PHP_EOL);
-                    $profit = $last_bet + self::BET;
+                    $profit = $last_bet + self::PROFIT;
                     $new_bet = $this->calculateBet($profit);
                     $result = $this->makeNewBet($odd_id, $new_bet);
                     break;
                 case "zruseno":
                     $this->console->write('Last result was zruseno, bet was ' . $last_bet . ',-Kc' . PHP_EOL);
-                    $new_bet = self::BET;
+                    $new_bet = $this->calculateBet(self::PROFIT);
                     $result = $this->makeNewBet($odd_id, $new_bet);
                     break;
                 default:
