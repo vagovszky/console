@@ -14,6 +14,9 @@ class Bet {
 
     public function __construct(\WebDriver $driver) {
         $this->driver = $driver;
+        $this->driver->manage()->timeouts()->implicitlyWait(self::WAIT_TIME);
+        $this->driver->manage()->timeouts()->pageLoadTimeout(self::WAIT_TIME);
+        $this->driver->manage()->timeouts()->setScriptTimeout(self::WAIT_TIME);
     }
 
     public function setPassword($password) {
