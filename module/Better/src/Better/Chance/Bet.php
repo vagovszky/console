@@ -10,7 +10,7 @@ class Bet {
 
     const CHANCE_URL = 'https://www.chance.cz/';
     const LIST_URL = 'https://www.chance.cz/kurzove-sazky/nabidka?obdobi=2&radit=2,1&vypisovat=2&pozadavek=vypis';
-    const WAIT_TIME = 120;
+    const WAIT_TIME = 40;
 
     public function __construct(\WebDriver $driver) {
         $this->driver = $driver;
