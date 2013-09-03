@@ -101,15 +101,13 @@ class SimpleTip {
         }else{
             $this->console->write('Creating new bet with odd_id - ' . $odd_id . ' and bet is ' . $bet . ',-Kc' . PHP_EOL);
             $result = $this->chance_better->bet($odd_id, $bet);        
-            $result = true;
             if ($result) {
                 $this->console->write('Bet created successfully...' . PHP_EOL);
+                $result = $this->saveNewBet($odd_id, $bet);
             } else {
-                $this->console->write('Bet creation failed...' . PHP_EOL);
+                $this->console->write('Bet creation failed, not saving !!!' . PHP_EOL);
             }
-            $result = $result && $this->saveNewBet($odd_id, $bet);
         }
-        
         return $result;
     }
 
@@ -125,7 +123,7 @@ class SimpleTip {
             $this->console->write('Bet save to db successfully...' . PHP_EOL);
             return true;
         } catch (\Exception $e) {
-            $this->console->write('Bet save to db failed...' . PHP_EOL);
+            $this->console->write('Bet save to db failed !!!' . PHP_EOL);
             return false;
         }
     }

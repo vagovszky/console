@@ -42,8 +42,11 @@ class Bet {
     }
 
     public function __destruct() {
-        $this->driver->close();
-        $this->driver->quit();
+        try{
+            if(isset($this->driver)){
+                $this->driver->quit();
+            }
+        }catch(\Exception $e){}
     }
 
     // -------------------------------------------------------------------------
