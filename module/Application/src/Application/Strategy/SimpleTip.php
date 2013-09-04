@@ -160,7 +160,7 @@ class SimpleTip {
             }
         } else {
             $this->console->write('No tips created yet.' . PHP_EOL);
-            $new_bet = $profit;
+            $new_bet = $this->calculateBet($profit);
             $result = $this->makeNewBet($odd_id, $new_bet);
         }
         return $result;
