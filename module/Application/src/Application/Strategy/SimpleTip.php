@@ -99,7 +99,9 @@ class SimpleTip {
             $this->console->write('Bet is heigher than limit ( bet - '.$bet.', limit - '.$limit.' ) !!!' . PHP_EOL);
             $result = false;
         }else{
-            $this->console->write('Creating new bet with odd_id - ' . $odd_id . ' and bet is ' . $bet . ',-Kc' . PHP_EOL);
+            $odd = $this->em->getRepository('Database\Entity\Odds')->find($odd_id);
+            $match_time = $odd ? $odd->getMatch()->getDatetime()->format('d.m.Y H:i') : "unknown";
+            $this->console->write('Creating new bet with odd_id - ' . $odd_id . ' and bet is ' . $bet . ',-Kc Match starts @ [ '.$match_time.' ]' . PHP_EOL);
             $result = $this->chance_better->bet($odd_id, $bet);        
             if ($result) {
                 $this->console->write('Bet created successfully...' . PHP_EOL);
