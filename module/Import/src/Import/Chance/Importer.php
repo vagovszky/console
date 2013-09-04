@@ -42,7 +42,7 @@ class Importer
     }
     
     private function prepareSources(array $sources){
-        $yesterday = date("d.m.Y", strtotime("-2 day"));   
+        $yesterday = date("d.m.Y", strtotime("-1 day"));   
         $sources['results'] = preg_replace("/_DATE_/", $yesterday, $sources['results']);
         return $sources;
     }
