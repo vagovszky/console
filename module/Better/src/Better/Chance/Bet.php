@@ -62,13 +62,24 @@ class Bet {
         );
     }
 
-    private function setMoney($money) {
+    private function setMoney($money, $iterations = 0) {
         $this->driver->findElement(\WebDriverBy::name("sazka-1"))->clear();
+        $this->driver->wait(2, 1000);
         $this->driver->findElement(\WebDriverBy::name("sazka-1"))->sendKeys($money);
+        $this->driver->wait(2, 1000);
         $this->driver->findElement(\WebDriverBy::id("i_tiket_obsah"))->click();
+        $value = $this->driver->findElement(\WebDriverBy::name("sazka-1"))->getAttribute("value");
         $this->driver->wait(self::WAIT_TIME, self::WAIT_PERIOD)->until(
                 \WebDriverExpectedCondition::presenceOfElementLocated(\WebDriverBy::cssSelector("#i_a_zaslat_tiket:not(.disabled)"))
         );
+        if(intval($money) != intval($value)){
+            if($iterations < 5){
+                $this->setMoney($money, $iterations++);
+            }else{
+                throw new \Exception('Method setMoney - maximum iteration count reached');
+            }
+        }
+        return true;
     }
 
     private function selectBet($odd_id) {
