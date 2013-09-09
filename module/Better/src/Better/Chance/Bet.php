@@ -63,12 +63,13 @@ class Bet {
     }
 
     private function setMoney($money, $iterations = 0) {
-        $this->driver->findElement(\WebDriverBy::name("sazka-1"))->clear();
+        $element_sazka_input = \WebDriverBy::cssSelector('#i_div_uctovani .vsazeno_box input.sazka[name="sazka-1"]');
+        $this->driver->findElement($element_sazka_input)->clear();
         $this->driver->wait(2, 1000);
-        $this->driver->findElement(\WebDriverBy::name("sazka-1"))->sendKeys($money);
+        $this->driver->findElement($element_sazka_input)->sendKeys($money);
         $this->driver->wait(2, 1000);
         $this->driver->findElement(\WebDriverBy::id("i_tiket_obsah"))->click();
-        $value = $this->driver->findElement(\WebDriverBy::name("sazka-1"))->getAttribute("value");
+        $value = $this->driver->findElement($element_sazka_input)->getAttribute("value");
         $this->driver->wait(self::WAIT_TIME, self::WAIT_PERIOD)->until(
                 \WebDriverExpectedCondition::presenceOfElementLocated(\WebDriverBy::cssSelector("#i_a_zaslat_tiket:not(.disabled)"))
         );
