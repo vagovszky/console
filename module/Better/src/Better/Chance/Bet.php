@@ -58,7 +58,7 @@ class Bet {
     private function doBet() {
         $this->driver->findElement(\WebDriverBy::id("i_a_zaslat_tiket"))->click();
         $this->driver->wait(self::WAIT_TIME, self::WAIT_PERIOD)->until(
-                \WebDriverExpectedCondition::presenceOfElementLocated(\WebDriverBy::className("message_ok"))
+                \WebDriverExpectedCondition::visibilityOfElementLocated(\WebDriverBy::className("message_ok"))
         );
     }
 
@@ -71,7 +71,7 @@ class Bet {
         $this->driver->findElement(\WebDriverBy::id("i_tiket_obsah"))->click();
         $value = $this->driver->findElement($element_sazka_input)->getAttribute("value");
         $this->driver->wait(self::WAIT_TIME, self::WAIT_PERIOD)->until(
-                \WebDriverExpectedCondition::presenceOfElementLocated(\WebDriverBy::cssSelector("#i_a_zaslat_tiket:not(.disabled)"))
+                \WebDriverExpectedCondition::visibilityOfElementLocated(\WebDriverBy::cssSelector("#i_a_zaslat_tiket:not(.disabled)"))
         );
         if(intval($money) != intval($value)){
             if($iterations < 5){
@@ -86,11 +86,11 @@ class Bet {
     private function selectBet($odd_id) {
         $this->driver->get(self::LIST_URL);
         $this->driver->wait(self::WAIT_TIME, self::WAIT_PERIOD)->until(
-                \WebDriverExpectedCondition::presenceOfElementLocated(\WebDriverBy::id("souteze"))
+                \WebDriverExpectedCondition::visibilityOfElementLocated(\WebDriverBy::id("souteze"))
         );
         $this->driver->findElement(\WebDriverBy::id("tip_$odd_id"))->click();
         $this->driver->wait(self::WAIT_TIME, self::WAIT_PERIOD)->until(
-                \WebDriverExpectedCondition::presenceOfElementLocated(\WebDriverBy::id("i_div_zaslat_tiket"))
+                \WebDriverExpectedCondition::visibilityOfElementLocated(\WebDriverBy::id("i_div_zaslat_tiket"))
         );
     }
 
@@ -109,7 +109,7 @@ class Bet {
         $this->driver->findElement(\WebDriverBy::id("ich_pwd"))->sendKeys($this->password);
         $this->driver->findElement(\WebDriverBy::id('chanceLoginButton'))->click();
         $this->driver->wait(self::WAIT_TIME, self::WAIT_PERIOD)->until(
-                \WebDriverExpectedCondition::presenceOfElementLocated(\WebDriverBy::className("klient_info"))
+                \WebDriverExpectedCondition::visibilityOfElementLocated(\WebDriverBy::className("klient_info"))
         );
     }
 

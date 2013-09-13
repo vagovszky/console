@@ -45,7 +45,10 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Co
     }
 
     public function getConsoleUsage(Console $console) {
-        return array("default" => "Make a tip if it is possible");
+        return array(
+            "default" => "Make a tip if it is possible",
+            "truncate" => "Truncate all database tables"
+            );
     }
 
     public function getServiceConfig() {
