@@ -66,7 +66,7 @@ class Bet {
         $element_sazka_input = \WebDriverBy::cssSelector('#i_div_uctovani .vsazeno_box input.sazka[name="sazka-1"]');
         $this->driver->findElement($element_sazka_input)->clear();
         $this->driver->wait(2, 1000);
-        $this->driver->findElement($element_sazka_input)->sendKeys($money);
+        $this->driver->findElement($element_sazka_input)->sendKeys((string) $money);
         $this->driver->wait(2, 1000);
         $this->driver->findElement(\WebDriverBy::id("i_tiket_obsah"))->click();
         $value = $this->driver->findElement($element_sazka_input)->getAttribute("value");
