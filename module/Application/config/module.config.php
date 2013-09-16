@@ -25,6 +25,15 @@ return array(
                             'action' => 'truncate'
                         )
                     )
+                ),
+                'info' => array(
+                    'options' => array(
+                        'route' => 'info',
+                        'defaults' => array(
+                            'controller' => 'Application\Controller\Index',
+                            'action' => 'info'
+                        )
+                    )
                 )
             )
         )

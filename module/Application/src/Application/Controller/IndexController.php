@@ -4,6 +4,7 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Doctrine\ORM\EntityManager;
+use Zend\Console\ColorInterface as Color;
 
 class IndexController extends AbstractActionController {
 
@@ -58,6 +59,39 @@ class IndexController extends AbstractActionController {
         } catch (\Exception $e) {
             $connection->rollback();
             $console->write('Error during truncate tables' . PHP_EOL . PHP_EOL);
+        }
+    }
+    
+    public function infoAction(){
+        $console = $this->getConsole();
+        if ($console instanceof Virtual) {
+            return "No console support !!!";
+        }
+        $query = $this->getEntityManager()->createQuery('SELECT t FROM Database\Entity\Tips t ORDER BY t.datetime_created DESC');
+        $last_tip = $query->setMaxResults(1)->getOneOrNullResult();
+        if(!empty($last_tip)){
+            $odd = $last_tip->getOdd();
+            $match = $odd->getMatch();
+            $bettype = $match->getBettype();
+            $ligue = $bettype->getLigue();
+            $console->write('INFORMATIONS ABOUT LAST TIP:'.PHP_EOL.PHP_EOL, Color::LIGHT_CYAN);
+            $console->write('Ligue: ');
+            $console->write('name '.$ligue->getName().', region '.$ligue->getRegion().', sport '.$ligue->getSport().PHP_EOL, Color::LIGHT_YELLOW);
+            $console->write('Bettype: ');
+            $console->write('name '.$bettype->getName().PHP_EOL, Color::LIGHT_YELLOW);
+            $console->write('Match: ');
+            $result = $odd->getResult(); 
+            $console->write('start '.$match->getDatetime()->format('d.m.Y H:i:s').', name: '.$match->getName().', result '.(empty($result)?"N/A":$result).PHP_EOL, Color::LIGHT_YELLOW);
+                        $console->write('Odd: ');
+            $result = $odd->getResult(); 
+            $console->write('tip '.$odd->getName().', course: '.$odd->getValue().', result '.(empty($result)?"N/A":$result).PHP_EOL, Color::LIGHT_YELLOW);
+            $console->write('Tip: ');
+            $console->write('created '.$last_tip->getDatetimeCreated()->format('d.m.Y H:i:s').', bet '.$last_tip->getBet().',- Kc'.PHP_EOL.PHP_EOL, Color::LIGHT_YELLOW);
+            
+            
+            
+        }else{
+            $console->write('No tip found' . PHP_EOL . PHP_EOL, Color::LIGHT_RED);
         }
     }
 
