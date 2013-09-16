@@ -63,7 +63,7 @@ class Bet {
     }
 
     private function setMoney($money, $iterations = 0) {
-        $element_sazka_input = \WebDriverBy::cssSelector('#i_div_uctovani .vsazeno_box input.sazka[name="sazka-1"]');
+        $element_sazka_input = \WebDriverBy::name('sazka-1');
         $this->driver->findElement($element_sazka_input)->clear();
         $this->driver->wait(2, 1000);
         $this->driver->findElement($element_sazka_input)->sendKeys((string) $money);
