@@ -19,6 +19,6 @@
         "zendframework/zendframework": "=2.2.2",
         "doctrine/doctrine-orm-module": "0.*",
         "zendframework/zftool": "dev-master",
-        "facebook/webdriver": "dev-master"
+        "facebook/webdriver": "0.1"
     }
 }
