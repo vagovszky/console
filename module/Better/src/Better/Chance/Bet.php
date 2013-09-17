@@ -90,7 +90,7 @@ class Bet {
         );
         $this->driver->findElement(\WebDriverBy::id("tip_$odd_id"))->click();
         $this->driver->wait(self::WAIT_TIME, self::WAIT_PERIOD)->until(
-                \WebDriverExpectedCondition::visibilityOfElementLocated(\WebDriverBy::id("i_div_zaslat_tiket"))
+                \WebDriverExpectedCondition::visibilityOfElementLocated(\WebDriverBy::name('sazka-1'))
         );
     }
 
