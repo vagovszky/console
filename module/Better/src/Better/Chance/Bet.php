@@ -63,18 +63,16 @@ class Bet {
     }
 
     private function setMoney($money, $iterations = 0) {
-        $element_sazka_input = \WebDriverBy::name('sazka-1');
-        //$this->driver->findElement($element_sazka_input)->clear();
-        //$this->driver->wait(2, 1000);
-        $this->driver->findElement($element_sazka_input)->sendKeys(\WebDriverKeys::BACKSPACE);
-        $this->driver->findElement($element_sazka_input)->sendKeys(\WebDriverKeys::BACKSPACE);
-        $this->driver->findElement($element_sazka_input)->sendKeys(\WebDriverKeys::BACKSPACE);
+        $element_sazka_input = $this->driver->findElement(\WebDriverBy::name('sazka-1'));
+        $element_sazka_input->sendKeys(\WebDriverKeys::BACKSPACE);
+        $element_sazka_input->sendKeys(\WebDriverKeys::BACKSPACE);
+        $element_sazka_input->sendKeys(\WebDriverKeys::BACKSPACE);
         
-        $this->driver->findElement($element_sazka_input)->sendKeys((string) $money);
+        $element_sazka_input->sendKeys((string) $money);
         $this->driver->wait(2, 1000);
         $this->driver->findElement(\WebDriverBy::id("i_tiket_obsah"))->click();
         $this->driver->wait(2, 1000);
-        $value = $this->driver->findElement($element_sazka_input)->getAttribute("value");
+        $value = $element_sazka_input->getAttribute("value");
         $this->driver->wait(self::WAIT_TIME, self::WAIT_PERIOD)->until(
                 \WebDriverExpectedCondition::visibilityOfElementLocated(\WebDriverBy::cssSelector("#i_a_zaslat_tiket:not(.disabled)"))
         );
