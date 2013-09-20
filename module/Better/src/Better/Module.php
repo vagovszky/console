@@ -4,7 +4,6 @@ namespace Better;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Better\Chance\Bet;
-use Better\Chance\WdBet;
 
 class Module implements ConsoleUsageProviderInterface
 {
@@ -37,11 +36,8 @@ class Module implements ConsoleUsageProviderInterface
             'factories' => array(
                 'chance_better' => function($sm) {
                     $config = $sm->get('Config');
-                    //$capabilities = array(\WebDriverCapabilityType::BROWSER_NAME => $config['better']['browser']);
-                    //$wd = new \RemoteWebDriver($config['better']['wd_host'], $capabilities);
-                    //$better = new Bet($wd);
                     $wd = new \PHPWebDriver_WebDriver($config['better']['wd_host']);
-                    $better = new WdBet($wd, $config['better']['browser']);
+                    $better = new Bet($wd, $config['better']['browser']);
                     return $better->setLogin($config['better']['chance']['login'])
                                   ->setPassword($config['better']['chance']['password']);
                 }
