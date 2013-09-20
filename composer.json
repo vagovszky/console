@@ -19,6 +19,7 @@
         "zendframework/zendframework": "=2.2.2",
         "doctrine/doctrine-orm-module": "0.*",
         "zendframework/zftool": "dev-master",
-        "facebook/webdriver": "0.1"
+        "facebook/webdriver": "0.1",
+        "element-34/php-webdriver": "1.11.0"
     }
 }

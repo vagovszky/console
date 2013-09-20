@@ -2,7 +2,7 @@
 
 namespace Better\Chance;
 
-class Bet {
+class Bet implements BetInterface{
 
     private $driver;
     private $login;
