@@ -2,7 +2,7 @@
 
 namespace Application\Strategy;
 
-use Better\Chance\WdBet;
+use Better\Chance\BetInterface;
 use Doctrine\ORM\EntityManager;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Database\Entity\Tips;
@@ -23,7 +23,7 @@ class SimpleTip {
         $this->console = $console;
     }
 
-    public function setChanceBetter(WdBet $chance_better) {
+    public function setChanceBetter(BetInterface $chance_better) {
         $this->chance_better = $chance_better;
         return $this;
     }
