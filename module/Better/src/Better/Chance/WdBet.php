@@ -66,7 +66,7 @@ class WdBet implements BetInterface{
     }
 
     private function setMoney($money) {
-        $element_sazka_input = $this->session->element(\PHPWebDriver_WebDriverBy::NAME, 'sazka-1');
+        $element_sazka_input = $this->session->element(\PHPWebDriver_WebDriverBy::CSS_SELECTOR, 'input.sazka[name="sazka-1"]');
         $element_sazka_input->clear();
         $element_sazka_input->sendKeys((string) $money);
         sleep(2);
