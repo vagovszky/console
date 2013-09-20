@@ -86,7 +86,7 @@ class WdBet implements BetInterface{
         $w = new \PHPWebDriver_WebDriverWait($this->session);
         $e = $w->until(
             function($session) {
-                return $session->element(\PHPWebDriver_WebDriverBy::NAME, 'sazka-1');
+                return $session->element(\PHPWebDriver_WebDriverBy::CSS_SELECTOR, 'input.sazka[name="sazka-1"]');
             }
         );        
         sleep(3);
