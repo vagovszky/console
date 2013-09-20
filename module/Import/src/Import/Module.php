@@ -5,8 +5,9 @@ use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 use Zend\Console\Adapter\AdapterInterface as Console;
 use Import\Chance\Parser;
 use Import\Chance\Importer;
+use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 
-class Module implements ConsoleUsageProviderInterface
+class Module implements ConsoleUsageProviderInterface, DependencyIndicatorInterface
 {
     public function getConfig()
     {
@@ -40,5 +41,9 @@ class Module implements ConsoleUsageProviderInterface
                 }
             )
         );
+    }
+    
+    public function getModuleDependencies(){
+        return array('DoctrineORMModule', 'Database');
     }
 }

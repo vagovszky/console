@@ -8,8 +8,9 @@ use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\Mvc\MvcEvent;
+use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
 
-class Module implements AutoloaderProviderInterface, ConfigProviderInterface, ConsoleUsageProviderInterface, ConsoleBannerProviderInterface {
+class Module implements AutoloaderProviderInterface, ConfigProviderInterface, ConsoleUsageProviderInterface, ConsoleBannerProviderInterface, DependencyIndicatorInterface {
 
     public function onBootstrap(MvcEvent $e) {
         $application = $e->getApplication();
@@ -61,5 +62,9 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Co
                 },
             )
         );
+    }
+    
+    public function getModuleDependencies() {
+        return array('Database', 'Import', 'Better');
     }
 }

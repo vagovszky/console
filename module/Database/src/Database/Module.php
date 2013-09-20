@@ -2,7 +2,9 @@
 
 namespace Database;
 
-class Module
+use Zend\ModuleManager\Feature\DependencyIndicatorInterface;
+
+class Module implements DependencyIndicatorInterface
 {
     public function getConfig()
     {
@@ -18,5 +20,9 @@ class Module
                 ),
             ),
         );
+    }
+    
+    public function getModuleDependencies(){
+        return array('DoctrineModule','DoctrineORMModule');
     }
 }
