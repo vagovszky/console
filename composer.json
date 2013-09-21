@@ -11,7 +11,8 @@
         "psr-0": {
             "Application\\": "module/Application/src/",
             "Database\\": "module/Database/src/",
-            "Import\\": "module/Import/src/"
+            "Import\\": "module/Import/src/",
+            "Better\\": "module/Better/src/"
         }
     },
     "require": {
