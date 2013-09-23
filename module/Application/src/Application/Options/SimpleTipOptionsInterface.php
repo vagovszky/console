@@ -16,4 +16,8 @@ interface SimpleTipOptionsInterface{
     
     public function getCourse();
     
+    public function getStrategyMap();
+    
+    public function setStrategyMap($strategyMap);
+    
 }

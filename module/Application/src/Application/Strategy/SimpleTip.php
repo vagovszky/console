@@ -49,72 +49,13 @@ class SimpleTip {
 
     private function findNewOdd() {
         $course = $this->getOptions()->getCourse();
-        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array($course, 0, 3));
-        $turn = $stmt->fetchColumn(0);
-        $this->console->write('Trying find odd 1. - ' . (empty($turn) ? '[ not found ]' : '[ ' . $turn . ' ]') . PHP_EOL);
-        if (!empty($turn))
-            return $turn;
-        
-        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array($course, 0.01, 3));
-        $turn = $stmt->fetchColumn(0);
-        $this->console->write('Trying find odd 2. - ' . (empty($turn) ? '[ not found ]' : '[ ' . $turn . ' ]') . PHP_EOL);
-        if (!empty($turn))
-            return $turn;
-        
-        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array($course, 0.02, 3));
-        $turn = $stmt->fetchColumn(0);
-        $this->console->write('Trying find odd 3. - ' . (empty($turn) ? '[ not found ]' : '[ ' . $turn . ' ]') . PHP_EOL);
-        if (!empty($turn))
-            return $turn;
-
-        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array($course, 0, 6));
-        $turn = $stmt->fetchColumn(0);
-        $this->console->write('Trying find odd 4. - ' . (empty($turn) ? '[ not found ]' : '[ ' . $turn . ' ]') . PHP_EOL);
-        if (!empty($turn))
-            return $turn;
-
-        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array($course, 0.01, 6));
-        $turn = $stmt->fetchColumn(0);
-        $this->console->write('Trying find odd 5. - ' . (empty($turn) ? '[ not found ]' : '[ ' . $turn . ' ]') . PHP_EOL);
-        if (!empty($turn))
-            return $turn;
-
-        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array($course, 0.02, 6));
-        $turn = $stmt->fetchColumn(0);
-        $this->console->write('Trying find odd 6. - ' . (empty($turn) ? '[ not found ]' : '[ ' . $turn . ' ]') . PHP_EOL);
-        if (!empty($turn))
-            return $turn;
-
-        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array($course, 0.03, 6));
-        $turn = $stmt->fetchColumn(0);
-        $this->console->write('Trying find odd 7. - ' . (empty($turn) ? '[ not found ]' : '[ ' . $turn . ' ]') . PHP_EOL);
-        if (!empty($turn))
-            return $turn;
-        
-        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array($course, 0.02, 8));
-        $turn = $stmt->fetchColumn(0);
-        $this->console->write('Trying find odd 8. - ' . (empty($turn) ? '[ not found ]' : '[ ' . $turn . ' ]') . PHP_EOL);
-        if (!empty($turn))
-            return $turn;
-
-        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array($course, 0.03, 8));
-        $turn = $stmt->fetchColumn(0);
-        $this->console->write('Trying find odd 9. - ' . (empty($turn) ? '[ not found ]' : '[ ' . $turn . ' ]') . PHP_EOL);
-        if (!empty($turn))
-            return $turn;
-        
-        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array($course, 0, 10));
-        $turn = $stmt->fetchColumn(0);
-        $this->console->write('Trying find odd 10. - ' . (empty($turn) ? '[ not found ]' : '[ ' . $turn . ' ]') . PHP_EOL);
-        if (!empty($turn))
-            return $turn;
-        
-        $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array($course, 0.05, 12));
-        $turn = $stmt->fetchColumn(0);
-        $this->console->write('Trying find odd 11. - ' . (empty($turn) ? '[ not found ]' : '[ ' . $turn . ' ]') . PHP_EOL);
-        if (!empty($turn))
-            return $turn;
-
+        $strategyMap = $this->getOptions()->getStrategyMap();
+        foreach($strategyMap as $i => $option){
+            $stmt = $this->em->getConnection()->executeQuery('SELECT FindOdd(?, ?, ?)', array($course, $option[0], $option[1]));
+            $turn = $stmt->fetchColumn(0);
+            $this->console->write('Trying find odd '.$i.'. ( delta course '.$option[0].', hours +'.$option[1].' ) - ' . (empty($turn) ? '[ not found ]' : '[ ' . $turn . ' ]') . PHP_EOL);
+            if (!empty($turn)) return $turn;
+        }
         return false;
     }
 
