@@ -3,7 +3,7 @@ return array(
     'modules' => array(
         'DoctrineModule',
         'DoctrineORMModule',
-        'Database',
+        'BetDatabase',
         'Import',
         'Better',
         'Application'

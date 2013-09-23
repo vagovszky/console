@@ -10,16 +10,22 @@
     "autoload": {
         "psr-0": {
             "Application\\": "module/Application/src/",
-            "Database\\": "module/Database/src/",
             "Import\\": "module/Import/src/",
             "Better\\": "module/Better/src/"
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "http://github.com/vagovszky/bet-database"
+        }
+    ],
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "=2.2.2",
         "doctrine/doctrine-orm-module": "0.*",
         "zendframework/zftool": "dev-master",
-        "element-34/php-webdriver": "1.12.0"
+        "element-34/php-webdriver": "1.12.0",
+        "vagovszky/bet-database": "1.0.0"
     }
 }

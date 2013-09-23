@@ -65,6 +65,6 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Co
     }
     
     public function getModuleDependencies() {
-        return array('Database', 'Import', 'Better');
+        return array('BetDatabase', 'Import', 'Better');
     }
 }

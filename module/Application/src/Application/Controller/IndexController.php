@@ -67,7 +67,7 @@ class IndexController extends AbstractActionController {
         if ($console instanceof Virtual) {
             return "No console support !!!";
         }
-        $query = $this->getEntityManager()->createQuery('SELECT t FROM Database\Entity\Tips t ORDER BY t.datetime_created DESC');
+        $query = $this->getEntityManager()->createQuery('SELECT t FROM BetDatabase\Entity\Tips t ORDER BY t.datetime_created DESC');
         $last_tip = $query->setMaxResults(1)->getOneOrNullResult();
         if(!empty($last_tip)){
             $odd = $last_tip->getOdd();
