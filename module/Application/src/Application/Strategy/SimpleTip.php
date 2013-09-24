@@ -5,7 +5,7 @@ namespace Application\Strategy;
 use Better\Chance\BetInterface;
 use Doctrine\ORM\EntityManager;
 use Zend\Console\Adapter\AdapterInterface as Console;
-use Database\Entity\Tips;
+use BetDatabase\Entity\Tips;
 use Application\Options\SimpleTipOptions;
 
 class SimpleTip {
@@ -38,7 +38,7 @@ class SimpleTip {
     }
 
     private function findLastTip() {
-        $query = $this->em->createQuery('SELECT t FROM Database\Entity\Tips t ORDER BY t.datetime_created DESC');
+        $query = $this->em->createQuery('SELECT t FROM BetDatabase\Entity\Tips t ORDER BY t.datetime_created DESC');
         $result = $query->setMaxResults(1)->getOneOrNullResult();
         if (empty($result)) {
             return false;
@@ -74,7 +74,7 @@ class SimpleTip {
             $this->console->write('Bet is heigher than limit ( bet - '.$bet.', limit - '.$limit.' ) !!!' . PHP_EOL);
             $result = false;
         }else{
-            $odd = $this->em->getRepository('Database\Entity\Odds')->find($odd_id);
+            $odd = $this->em->getRepository('BetDatabase\Entity\Odds')->find($odd_id);
             $match_time = $odd ? $odd->getMatch()->getDatetime()->format('d.m.Y H:i') : "unknown";
             $this->console->write('Creating new bet with odd_id - ' . $odd_id . ' and bet is ' . $bet . ',-Kc Match starts @ [ '.$match_time.' ]' . PHP_EOL);
             $result = $this->chance_better->bet($odd_id, $bet);        
@@ -90,7 +90,7 @@ class SimpleTip {
 
     private function saveNewBet($odd_id, $bet) {
         try {
-            $odd = $this->em->getRepository('Database\Entity\Odds')->find($odd_id);
+            $odd = $this->em->getRepository('BetDatabase\Entity\Odds')->find($odd_id);
             $tips = new Tips();
             $tips->setBet($bet);
             $tips->setDatetimeCreated(new \DateTime());

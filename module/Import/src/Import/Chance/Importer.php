@@ -2,10 +2,10 @@
 
 namespace Import\Chance;
 
-use Database\Entity\Ligues;
-use Database\Entity\Bettypes;
-use Database\Entity\Matches;
-use Database\Entity\Odds;
+use BetDatabase\Entity\Ligues;
+use BetDatabase\Entity\Bettypes;
+use BetDatabase\Entity\Matches;
+use BetDatabase\Entity\Odds;
 
 class Importer
 {
@@ -51,7 +51,7 @@ class Importer
         $parser = $this->parser->setSource($source);
         $data = $parser->parse();
         foreach ($data as $_ligue){ // $_ligue contains array with values for Ligues entity
-            if(!$ligue = $this->getEntityManager()->find('Database\Entity\Ligues', $_ligue->id)){
+            if(!$ligue = $this->getEntityManager()->find('BetDatabase\Entity\Ligues', $_ligue->id)){
                 $ligue = new Ligues();  // Create new entity Ligues
                 $this->cnt_ligues_add++;
             } else {
@@ -60,7 +60,7 @@ class Importer
             $ligue->populateObj($_ligue); // Map $_ligue array into object properties
             $this->getEntityManager()->persist($ligue); // persist entity
             foreach ($_ligue->bettypes as $_bettype){ // $_bettybe contains array with values for Bettype entity
-                if(!$bettype = $this->getEntityManager()->find('Database\Entity\Bettypes', $_bettype->id)){
+                if(!$bettype = $this->getEntityManager()->find('BetDatabase\Entity\Bettypes', $_bettype->id)){
                     $bettype = new Bettypes($ligue); // Create new Bettype entity and set parent Ligue entity
                     $this->cnt_bettypes_add++;
                 } else {
@@ -69,7 +69,7 @@ class Importer
                 $bettype->populateObj($_bettype); // map $_bettype array into object properties
                 $this->getEntityManager()->persist($bettype); // persist
                 foreach($_bettype->matches as $_match){ // --||--
-                    if(!$match = $this->getEntityManager()->find('Database\Entity\Matches', $_match->id)){
+                    if(!$match = $this->getEntityManager()->find('BetDatabase\Entity\Matches', $_match->id)){
                         $match = new Matches($bettype); // --||--
                         $this->cnt_matches_add++;
                     }else{ 
@@ -78,7 +78,7 @@ class Importer
                     $match->populateObj($_match); // --||--
                     $this->getEntityManager()->persist($match); // --||--
                     foreach ($_match->odds as $_odd){ // --||--
-                        if(!$odd = $this->getEntityManager()->find('Database\Entity\Odds', $_odd->id)){
+                        if(!$odd = $this->getEntityManager()->find('BetDatabase\Entity\Odds', $_odd->id)){
                             $odd = new Odds($match); // --||--
                             $this->cnt_odds_add++;
                         }else{ 

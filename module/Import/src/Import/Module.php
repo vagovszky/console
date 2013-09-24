@@ -44,6 +44,6 @@ class Module implements ConsoleUsageProviderInterface, DependencyIndicatorInterf
     }
     
     public function getModuleDependencies(){
-        return array('DoctrineORMModule', 'Database');
+        return array('DoctrineORMModule', 'BetDatabase');
     }
 }
