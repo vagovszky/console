@@ -65,6 +65,10 @@ class SimpleTip {
     }
 
     private function makeNewBet($odd_id, $bet) {
+        if(!$odd_id){
+            $this->console->write('Odd not found !!!' . PHP_EOL);
+            return false;
+        }
         $limit = $this->getOptions()->getLimit();
         if($bet >= $limit){
             $this->console->write('Bet is heigher than limit ( bet - '.$bet.', limit - '.$limit.' ) !!!' . PHP_EOL);
