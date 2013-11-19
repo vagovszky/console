@@ -115,7 +115,7 @@ class SimpleTip {
         $this->console->write('Making simple tip... [ '.date('d.m.Y H:i:s').' ]' . PHP_EOL);
         $last_tip = $this->findLastTip();
         $odd = $this->findNewOdd();
-        if ($last_tip) {
+        if ($last_tip && (!empty($odd))) {
             $last_result = $last_tip->getOdd()->getResult();
             $last_bet = $last_tip->getBet();
             switch ($last_result) {
@@ -141,7 +141,7 @@ class SimpleTip {
                     break;
             }
         } else {
-            $this->console->write('No tips created yet.' . PHP_EOL);
+            $this->console->write('No tips created yet or no bet available.' . PHP_EOL);
             $new_bet = $this->calculateBet($profit, $odd);
             $result = $this->makeNewBet($odd, $new_bet);
         }
